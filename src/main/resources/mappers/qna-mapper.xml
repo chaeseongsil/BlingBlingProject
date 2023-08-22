@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="QnaMapper">
+	<resultMap type="Qna" id="qnaResultMap">
+		<id 	property="myQnaNo" 		column="MYQNA_NO"/>
+		<result property="myQnaTitle" 	column="MYQNA_TITLE"/>
+		<result property="myQnaContent" column="MYQNA_CONTENT"/>
+		<result property="myQnaWriter" 	column="MYQNA_WRITER"/>
+		<result property="myQnaPw" 		column="MYQNA_PW"/>
+		<result property="myQnaDate" 	column="MYQNA_DATE"/>
+		<result property="viewCount" 	column="VIEW_COUNT"/>
+	</resultMap>
+	<insert id="insertQna">
+		INSERT INTO MYQNA_TBL VALUES(SEQ_MYQNA_NO.NEXTVAL, #{myQnaTitle}, #{myQnaContent}, #{myQnaWriter}, #{myQnaPw}, DEFAULT, DEFAULT)
+	</insert>
+	<update id="updateQna">
+		UPDATE MYQNA_TBL SET MYQNA_TITLE = #{myQnaTitle}, MYQNA_CONTENT = #{myQnaContent}, MYQNA_PW = #{myQnaPw} WHERE MYQNA_NO = #{myQnaNo}
+	</update>
+	<delete id="deleteQna">
+		DELETE FROM MYQNA_TBL WHERE MYQNA_NO = #{myQnaNo}
+	</delete>
+	<select id="selectAllListCount" resultType="_int">
+		SELECT COUNT(*) FROM MYQNA_TBL
+	</select>
+	<select id="selectMyListCount" resultType="_int">
+		SELECT COUNT(*) FROM MYQNA_TBL WHERE MYQNA_WRITER = #{myQnaWriter}
+	</select>
+	<select id="selectAllQnaList" resultMap="qnaResultMap">
+		SELECT * FROM MYQNA_TBL ORDER BY MYQNA_NO DESC
+	</select>
+	<select id="selectMyQnaList" resultMap="qnaResultMap">
+		SELECT * FROM MYQNA_TBL WHERE MYQNA_WRITER = #{myQnaWriter} ORDER BY MYQNA_NO DESC
+	</select>
+	<select id="selectOneByNo" resultMap="qnaResultMap">
+		SELECT * FROM MYQNA_TBL WHERE MYQNA_NO = #{myQnaNo}
+	</select>
+</mapper>

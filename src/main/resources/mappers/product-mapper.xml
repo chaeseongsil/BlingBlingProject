@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductMapper">
+	<resultMap type="Product" id="productResultMap">
+		<id 	property="productNo" 		column="PRODUCT_NO"/>
+		<result property="productName" 		column="PRODUCT_NAME"/>
+		<result property="productPrice" 	column="PRODUCT_PRICE"/>
+		<result property="productCategory"  column="PRODUCT_CATEGORY"/>
+		<result property="pImageName" 		column="P_IMAGE_NAME"/>
+		<result property="pImagePath" 		column="P_IMAGE_PATH"/>
+		<result property="pImageLength" 	column="P_IMAGE_LENGTH"/>
+		<result property="pRegDate" 		column="P_REG_DATE"/>
+		<result property="pStockYn" 		column="P_STOCK_YN"/>
+	</resultMap>
+	<select id="selectAllProduct" resultMap="productResultMap">
+		SELECT * FROM PRODUCT_TBL ORDER BY PRODUCT_NO DESC
+	</select>
+	<select id="selectOneByNo" resultMap="productResultMap">
+		SELECT * FROM PRODUCT_TBL WHERE PRODUCT_NO = #{productNo}
+	</select>
+</mapper>
