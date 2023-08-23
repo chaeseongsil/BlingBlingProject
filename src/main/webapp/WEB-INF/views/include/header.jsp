@@ -36,14 +36,14 @@
 	                                <div class="myPageNav">
 	                                    <ul>
 	                                   		<li><a href="/member/myInfo.do?member-id=${memberId }">회원 정보 수정</a></li>
-	                                        <li><a href="/shop/cart.jsp">장바구니</a></li>
+	                                        <li><a href="/cart/list.do?memberId=${ memberId}">장바구니</a></li>
 	                                        <li><a href="/member/myOrderList.jsp">주문 내역</a></li>
 	                                        <li><a href="/myQna/list.do?memberId=${memberId }&currentPage=1">나의 문의 내역</a></li>
 	                                    </ul>
 		                            </div>
 	                            </div>
                         	</li>
-                        	<li><a href="/shop/cart.jsp">CART</a></li>
+                        	<li><a href="/cart/list.do?memberId=${memberId }">CART</a></li>
                     	</c:if>
                     	<c:if test="${sessionScope.memberId eq null }">
 	                        <li><a href="/member/login.do">LOGIN</a></li>

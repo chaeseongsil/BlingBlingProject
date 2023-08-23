@@ -15,6 +15,7 @@ import org.springframework.web.context.annotation.SessionScope;
 
 import kr.co.blingbling.cart.domain.Cart;
 import kr.co.blingbling.cart.service.CartService;
+import kr.co.blingbling.product.domain.Product;
 
 @Controller
 public class CartController {
@@ -25,21 +26,25 @@ public class CartController {
 	@RequestMapping(value="/cart/insert.do", produces="text/html;charset=UTF-8;", method=RequestMethod.GET)
 	public @ResponseBody String addCart(
 			@RequestParam("productNo") int productNo
-			, @RequestParam("productColor") String productColor
-			, @RequestParam("amount") int amount
 			, @RequestParam("productPrice") int cartPrice
+			, @RequestParam("pImagePath") String pImagePath
 			, @RequestParam("memberId") String memberId
-			, @RequestParam("image") String pImagePath
+			, @RequestParam("productName") String [] productName
+			, @RequestParam("productColor") String [] productColor
+			, @RequestParam("amount") int [] amount
 			, Model model
 			) {
+		int result = 0;
 		if(memberId == null || memberId.trim().length() == 0) {
 			return "<script>alert('로그인이 필요한 서비스입니다.'); location.href='/member/login.do';</script>";
 		}else {
-			Cart cart = new Cart(memberId, productNo, productColor, pImagePath, amount, cartPrice);
-			int result = service.insertCart(cart);
-			if(result > 0) {
+			for(int i = 0; i < productName.length-1; i++) {
+				Cart cart = new Cart(memberId, productNo, productName[i], productColor[i], pImagePath, amount[i], cartPrice);
+				result += service.insertCart(cart);
+			}
+			if(result >= productName.length-1) {
 				return "<script>if(confirm('장바구니에 등록되었습니다. 장바구니로 이동하시겠습니까?')){"
-						+ " location.href='/cart/list.do'"
+						+ " location.href='/cart/list.do?memberId="+memberId+"'"
 						+ "}else {"
 						+ "	history.back();"
 						+ "}</script>";
@@ -51,11 +56,28 @@ public class CartController {
 	
 	@RequestMapping(value="/cart/list.do", method=RequestMethod.GET)
 	public String showCartList(
-			@SessionAttribute("memberId") String memberId
+			@RequestParam("memberId") String memberId
 			, Model model
 			) {
 		List<Cart> cList = service.selectAllCarts(memberId);
 		model.addAttribute("cList", cList);
 		return "order/cart";
+	}
+	
+	@RequestMapping(value="/cart/delete.do", produces="text/html;charset=UTF-8;", method=RequestMethod.GET)
+	public @ResponseBody String deleteCart(
+			@RequestParam("memberId") String memberId
+			, @RequestParam("cartNo") int [] cartNo
+			, Model model
+			) {
+		int result = 0;
+		for(int i = 0; i < cartNo.length; i++) {
+			result += service.deleteCart(cartNo[i]);
+		}
+		if(result >= cartNo.length) {
+			return "<script>alert('"+result+"개의 목록을 삭제하였습니다.'); location.href='/cart/list.do?memberId="+memberId+"'</script>";
+		}else {
+			return "<script>alert('삭제를 실패하였습니다.'); history.back();</script>";
+		}
 	}
 }

@@ -64,16 +64,22 @@
             
 
             document.querySelector("#cartBtn").addEventListener("click", () =>{
-            	var pNames = document.querySelectorAll(".product-name");
-            	var color = document.querySelector("#pColor").innerText;
-            	var amount = document.querySelector(".orderCount").value;
-            	var price = document.querySelector(".product-price").value;
+            	var pNames = document.querySelectorAll("#pName.product-name");
+            	var spanColors = document.querySelectorAll(".spanColor");
+            	var orderCounts = document.querySelectorAll(".orderCount");
+            	
             	var productNo = document.querySelector("#productNo").value;
-            	var imgPath = document.querySelector("#productImg").value;
+            	var price = document.querySelector(".product-price").value;
+            	var pImagePath = document.querySelector("#productImg").value;
             	var memberId = document.querySelector("#memberId").value;
+            	
+            	var cartUrl = "/cart/insert.do?memberId="+memberId+"&productNo="+productNo+"&productPrice="+price+"&pImagePath="+pImagePath;
             	for(var i = 0; i < pNames.length; i++){
-                	location.href="/cart/insert.do?memberId="+memberId+"&productNo="+productNo+"&productColor="+color+"&amount="+amount+"&productPrice="+price+"&image="+imgPath;
+            		cartUrl += "&productName="+pNames[i].innerText;
+            		cartUrl += "&productColor="+spanColors[i].innerText;
+            		cartUrl += "&amount="+orderCounts[i].value;
                 }
+            	location.href=cartUrl;
             });
 
             document.querySelector("#toOrderBtn").addEventListener("click", () => {

@@ -7,13 +7,18 @@
 		<id 	property="cartNo" 		column="CART_NO"/>
 		<result property="memberId" 	column="MEMBER_ID"/>
 		<result property="productNo"	column="PRODUCT_NO"/>
+		<result property="productName"	column="PRODUCT_NAME"/>
 		<result property="productColor" column="PRODUCT_COLOR"/>
+		<result property="pImagePath" column="P_IMAGE_PATH"/>
 		<result property="amount" 		column="AMOUNT"/>
 		<result property="cartPrice" 	column="CART_PRICE"/>
 	</resultMap>
 	<insert id="insertCart">
-		INSERT INTO CART_TBL VALUES(SEQ_CART_NO.NEXTVAL, #{memberId}, #{productNo}, #{productColor}, #{pImagePath}, #{amount}, #{cartPrice})
+		INSERT INTO CART_TBL VALUES(SEQ_CART_NO.NEXTVAL, #{memberId}, #{productNo}, #{productName}, #{productColor}, #{pImagePath}, #{amount}, #{cartPrice})
 	</insert>
+	<delete id="deleteCart">
+		DELETE FROM CART_TBL WHERE CART_NO = #{cartNo}
+	</delete>
 	<select id="selectAllCarts" resultMap="cartResultMap">
 		SELECT * FROM CART_TBL WHERE MEMBER_ID = #{memberId}
 	</select>

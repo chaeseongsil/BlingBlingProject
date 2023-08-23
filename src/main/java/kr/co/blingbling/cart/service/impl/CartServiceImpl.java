@@ -29,4 +29,10 @@ public class CartServiceImpl implements CartService{
 		List<Cart> cList = cStore.selectAllCarts(session, memberId);
 		return cList;
 	}
+
+	@Override
+	public int deleteCart(int cartNo) {
+		int result = cStore.deleteCart(session, cartNo);
+		return result;
+	}
 }

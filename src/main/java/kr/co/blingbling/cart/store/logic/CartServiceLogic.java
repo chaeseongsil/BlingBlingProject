@@ -22,6 +22,12 @@ public class CartServiceLogic implements CartStore{
 		List<Cart> cList = session.selectList("CartMapper.selectAllCarts", memberId);
 		return cList;
 	}
+
+	@Override
+	public int deleteCart(SqlSession session, int cartNo) {
+		int result = session.delete("CartMapper.deleteCart", cartNo);
+		return result;
+	}
 	
 
 }

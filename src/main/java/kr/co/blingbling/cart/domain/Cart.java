@@ -4,6 +4,7 @@ public class Cart {
 	private int cartNo;
 	private String memberId;
 	private int productNo;
+	private String productName;
 	private String productColor;
 	private String pImagePath;
 	private int amount;
@@ -11,10 +12,12 @@ public class Cart {
 	
 	public Cart() {}
 	
-	public Cart(String memberId, int productNo, String productColor, String pImagePath, int amount, int cartPrice) {
+	public Cart(String memberId, int productNo, String productName, String productColor, String pImagePath, int amount,
+			int cartPrice) {
 		super();
 		this.memberId = memberId;
 		this.productNo = productNo;
+		this.productName = productName;
 		this.productColor = productColor;
 		this.pImagePath = pImagePath;
 		this.amount = amount;
@@ -43,6 +46,14 @@ public class Cart {
 
 	public void setProductNo(int productNo) {
 		this.productNo = productNo;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
 	public String getProductColor() {
@@ -79,9 +90,9 @@ public class Cart {
 
 	@Override
 	public String toString() {
-		return "장바구니 [장바구니번호=" + cartNo + ", 회원ID=" + memberId + ", 상품번호=" + productNo + ", 상품색상="
-				+ productColor + ", 상품수량=" + amount + ", 상품가격=" + cartPrice + "]";
+		return "Cart [cartNo=" + cartNo + ", memberId=" + memberId + ", productNo=" + productNo + ", productName="
+				+ productName + ", productColor=" + productColor + ", pImagePath=" + pImagePath + ", amount=" + amount
+				+ ", cartPrice=" + cartPrice + "]";
 	}
-	
 	
 }

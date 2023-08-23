@@ -22,5 +22,12 @@ public interface CartStore {
 	 * @return List<Cart>
 	 */
 	public List<Cart> selectAllCarts(SqlSession session, String memberId);
+	/**
+	 * 장바구니 삭제 Service
+	 * @param session
+	 * @param cartNo
+	 * @return int
+	 */
+	public int deleteCart(SqlSession session, int cartNo);
 
 }

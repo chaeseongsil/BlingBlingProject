@@ -18,5 +18,11 @@ public interface CartService {
 	 * @return
 	 */
 	public List<Cart> selectAllCarts(String memberId);
+	/**
+	 * 장바구니 삭제 Service
+	 * @param cartNo
+	 * @return int
+	 */
+	public int deleteCart(int cartNo);
 
 }

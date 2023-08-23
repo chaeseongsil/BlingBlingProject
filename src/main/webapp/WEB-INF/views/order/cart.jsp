@@ -23,22 +23,54 @@
                     </div>
                     <div id="cartList">
                         <table id="cartTable">
+                        	<colgroup>
+                        		<col width="10%">
+                        		<col width="20%">
+                        		<col width="60%">
+                        		<col width="10%">
+                        	</colgroup>
+                        	<tbody>
             				<c:if test="${!empty cList}">
             					<c:forEach items="${cList }" var="cart">
             						<tr>
+            							<td style="text-align:center;">
+            								<input type="checkbox" class="checkCart" value="${cart.cartNo }">
+            							</td>
+            							<td style="text-align:center;">
+            								<img alt="" src="${cart.pImagePath }">
+            							</td>
             							<td>
+            								<p style="text-align:center;">
+            									<a href="/product/shopDesc.do?productNo=${cart.productNo }">${cart.productName }${cart.productColor }</a>
+            									
+            								</p>
+            							</td>
+            							<td>
+            								<p class="priceOne" style="text-align:center;">
+            									${cart.cartPrice }
+            								</p>
+            							</td>
             						</tr>
             					</c:forEach>
             				</c:if>
+            				<c:if test="${empty cList }">
+            					<tr >
+            						<td colspan="4" style="height:450px; text-align:center;">장바구니가 비어있습니다.</td>
+            					</tr>
+            				</c:if>
+                        	</tbody>
                         </table>
                     </div>
                     <div id="cartPrice">
                         <p>상품 구매 금액 <span class="totalPrice1">0</span>원 + 배송비 0원 = <span class="totalPrice2">0</span>원  </p>
                     </div>
-                    <div id="cartBtns">
-                        <button onclick="goToOrderPage();">선택 상품 주문</button>
-                        <button onclick="goToOrderPage();">전체 상품 주문</button>
-                    </div>
+                    <c:if test="${!empty cList}">
+	                    <div id="cartBtns">
+	                        <button id="deleteBtn">선택 상품 삭제</button>
+	                        <button onclick="goToOrderPage();">선택 상품 주문</button>
+	                        <button onclick="goToOrderPage();">전체 상품 주문</button>
+	                    </div>
+                    </c:if>
                 </div>
             </main>
             <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
@@ -56,6 +88,17 @@
             function alertLogin(){
 	           	alert("로그인이 필요한 서비스입니다.");
             }
+            document.querySelector("#deleteBtn").addEventListener("click", () => {
+            	const memberId = '${memberId}';
+            	let checkedItems = document.querySelectorAll(".checkCart");
+            	let deleteUrl = "/cart/delete.do?memberId="+memberId;
+            	for(let i = 0; i < checkedItems.length; i++){
+            		if(checkedItems[i].checked){
+	            		deleteUrl += "&cartNo="+ checkedItems[i].value;
+            		}
+            	}
+            	location.href = deleteUrl;
+            });
         </script>
         <script type="text/javascript" src="../resources/js/cart.js"></script>
     </body>
