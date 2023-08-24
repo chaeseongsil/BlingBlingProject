@@ -35,4 +35,10 @@ public class CartServiceImpl implements CartService{
 		int result = cStore.deleteCart(session, cartNo);
 		return result;
 	}
+
+	@Override
+	public Cart selectOneByNo(int cartNo) {
+		Cart cart = cStore.selectOneByNo(session, cartNo);
+		return cart;
+	}
 }

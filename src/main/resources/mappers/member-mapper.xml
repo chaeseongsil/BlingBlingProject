@@ -39,4 +39,7 @@
 	<select id="selectOneFindPw" resultMap="memberResultMap">
 		SELECT * FROM MEMBER_TBL WHERE MEMBER_ID = #{memberId} AND MEMBER_NAME = #{memberName} AND MEMBER_EMAIL = #{memberEmail}
 	</select>
+	<select id="selectIdCheck" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER_TBL WHERE MEMBER_ID = #{memberId}
+	</select>
 </mapper>

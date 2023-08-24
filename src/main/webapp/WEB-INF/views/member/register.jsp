@@ -22,7 +22,9 @@
                         <p>JOIN</p>
                     </div>
                     <div id="mainForm">
+                    	<span id="message" style="color:blue;"></span>
                         <form id="join-form" action="/member/register.do" method="post">
+                        	
                             <div class="join-form-div">
                                 <p>ID *</p> 
                                 <input type="text" name="userId" id="user-id" class="join-form-field" placeholder="영문 소문자/숫자 6~12자"required> 
@@ -34,6 +36,7 @@
                             <div class="join-form-div">
                                 <p>PASSWORD CHECK *</p>
                                 <input type="password" name="userPwCheck" id="user-pw-check" class="join-form-field" required>
+                                <p id="name-span"></p>
                             </div>
                             <div class="join-form-div">
                                 <p>NAME</p>
@@ -115,6 +118,60 @@
             function alertLogin(){
 	           	alert("로그인이 필요한 서비스입니다.");
             }
+            document.querySelector("#join-form").addEventListener("submit",(e)=>{
+                msg = document.querySelector("#message");
+                msg.style.color = "red";
+                msg.style.fontWeight = "bolder";
+                // 입력값 가져오기
+                const userId = document.querySelector("#user-id").value;
+                const userPw = document.querySelector("#user-pw").value;
+                const userPwRe = document.querySelector("#user-pw-check").value;
+                const userName = document.querySelector("#user-name").value;
+                const userAddr = document.querySelector("#user-post").value;
+                const userPost1 = document.querySelector("#user-post-addr1").value;
+                const userPost2 = document.querySelector("#user-post-addr2").value;
+                const userEmail = document.querySelector("#user-email").value;
+                // 정규표현식
+                const idRegExp = /^[a-z][a-z0-9]{4,12}$/g;
+                const pwRegExp = /^[a-zA-Z0-9]{8,16}$/g;
+                const nameRegExp = /^[가-힣]+$/g;
+                const addrRegExp = /[a-zA-z]+/g;
+                const postRegExp = /^[0-9]+$/;
+                const emailRegExp = /^[a-zA-Z0-9]{4,12}@[a-z]+\.[a-z]{3,4}/g; //.을 문자로 체크하려면 \붙여줘야함
+                const tel1RegExp = /^010$/g;
+                const tel2RegExp = /^\d{3,4}$/g;
+                const tel3RegExp = /^\d{4}$/g
+                //id
+                if(!idRegExp.test(userId)){
+                    e.preventDefault();
+                    msg.innerText = "ID는 영어소문자, 숫자만 가능합니다.(4~12자리)";
+                    
+                }else if(!pwRegExp.test(userPw)){
+                    //pw
+                    e.preventDefault();
+                    msg.innerText = "PW는 영어소문자,대문자,숫자만 입력 가능합니다.(최소 8~16자리)";
+                }else if(userPw != userPwRe){
+                    //pw == pw-re
+                    e.preventDefault();
+                    msg.innerText = "비밀번호가 일치하지 않습니다.";
+                    
+                }else if(!nameRegExp.test(userName)){
+                    //name
+                    e.preventDefault();
+                    msg.innerText = "이름은 한글만 가능합니다.(최소 1글자 이상)";
+                    
+                }else if(addrRegExp.test(userAddr)){
+                    //주소
+                    e.preventDefault();
+                    msg.innerText = "주소는 영어 사용이 불가합니다.(공백 불가)";
+                    
+                }else if(!emailRegExp.test(userEmail)){
+                    //e-mail
+                    e.preventDefault();
+                    msg.innerText = "이메일은 @가 포함되어야 합니다.(아이디 : 영문자,숫자로 4~12글자)";
+                    
+                }
+            })
         </script>
     </body>
 </html>

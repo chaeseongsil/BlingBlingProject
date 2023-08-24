@@ -1,21 +1,18 @@
 package kr.co.blingbling.cart.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.context.annotation.SessionScope;
 
 import kr.co.blingbling.cart.domain.Cart;
 import kr.co.blingbling.cart.service.CartService;
-import kr.co.blingbling.product.domain.Product;
 
 @Controller
 public class CartController {
@@ -79,5 +76,21 @@ public class CartController {
 		}else {
 			return "<script>alert('삭제를 실패하였습니다.'); history.back();</script>";
 		}
+	}
+	
+	@RequestMapping(value="/cart/sendOrder.do", method=RequestMethod.GET)
+	public String showOrderForm(
+			@RequestParam("memberId") String memberId
+			, @RequestParam("cartNo") int [] cartNo
+			, Model model
+			) {
+		List<Cart> cList = new ArrayList<Cart>();
+		for(int i = 0; i < cartNo.length; i++) {
+			Cart cart = service.selectOneByNo(cartNo[i]);
+			cList.add(cart);
+		}
+		model.addAttribute("cList", cList);
+		return "order/order";
+			
 	}
 }

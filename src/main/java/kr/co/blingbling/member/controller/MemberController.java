@@ -69,13 +69,18 @@ public class MemberController {
 			, @RequestParam("userEmail") String memberEmail
 			, Model model
 			) {
-		String memberPhone = memberPhone1 + memberPhone2;
-		Member member = new Member(memberId, memberPw, memberName, memberPostCode, memberAddr1, memberAddr2, memberPhone, memberEmail);
-		int result = service.insertMember(member);
-		if(result > 0) {
-			return "<script>alert('가입이 완료되었습니다. 로그인해주세요.'); location.href='/member/login.do'</script>";
+		int idCheck = service.selectIdCheck(memberId);
+		if(idCheck > 0) {
+			return "<script>alert('이미 존재하는 ID입니다.'); history.back();</script>";
 		}else {
-			return "<script>alert('회원가입 실패'); history.back();</script>";
+			String memberPhone = memberPhone1 + memberPhone2;
+			Member member = new Member(memberId, memberPw, memberName, memberPostCode, memberAddr1, memberAddr2, memberPhone, memberEmail);
+			int result = service.insertMember(member);
+			if(result > 0) {
+				return "<script>alert('가입이 완료되었습니다. 로그인해주세요.'); location.href='/member/login.do'</script>";
+			}else {
+				return "<script>alert('회원가입 실패'); history.back();</script>";
+			}
 		}
 	}
 	

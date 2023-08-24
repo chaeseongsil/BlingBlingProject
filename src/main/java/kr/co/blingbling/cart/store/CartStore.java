@@ -29,5 +29,12 @@ public interface CartStore {
 	 * @return int
 	 */
 	public int deleteCart(SqlSession session, int cartNo);
+	/**
+	 * 장바구니 번호로 조회 Store
+	 * @param session
+	 * @param cartNo
+	 * @return Cart
+	 */
+	public Cart selectOneByNo(SqlSession session, int cartNo);
 
 }

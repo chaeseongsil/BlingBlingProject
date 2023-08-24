@@ -1,22 +1,21 @@
 /**
  * 
  */
-const urlParams = new URLSearchParams(window.location.search);
-const imageUrl = urlParams.get('image');
-const productName = decodeURIComponent(urlParams.get('title'));
-const productPrice = urlParams.get('price');
-const orderTableTag = document.getElementById("orderTable");
-if(imageUrl != null){
-    orderTableTag.innerHTML += "<tr><td><img src="+imageUrl+"><p>"+productName+"</p><p>&#8361;"+productPrice+"</p></td></tr>"
-    document.querySelector(".totalPrice1").innerText = productPrice;
-    document.querySelector(".totalPrice2").innerText = productPrice;
+let price = document.querySelectorAll(".priceOne");
+let totalPrice = 0;
+for(let i = 0; i < price.length; i++){
+	totalPrice += parseInt(price[i].innerText);            	
 }
-const price = document.querySelector("#product-price");
-price.innerText = productPrice + "원";
-var totalPrice = productPrice.replace(/,/g, "");
-totalPrice = parseInt(totalPrice);
+document.querySelector(".totalPrice1").innerText = totalPrice;
+document.querySelector(".totalPrice2").innerText = totalPrice;
 
-document.querySelector("#coin").addEventListener("change", () => {
+const lastPrice = document.querySelector("#product-price");
+lastPrice.innerText = totalPrice + "원";
+//var totalPrice = price.replace(/,/g, "");
+const resultP = document.querySelector("#resultPrice");
+resultP.innerText = totalPrice + "원";
+
+/*document.querySelector("#coin").addEventListener("change", () => {
     const coinVal = document.querySelector("#coin").value;
     const resultP = document.querySelector("#resultPrice");
     if(coinVal > 5000){
@@ -28,7 +27,7 @@ document.querySelector("#coin").addEventListener("change", () => {
         document.querySelector("#totalCoin").innerText = coinVal + "원";
         resultP.innerText = totalPrice - coinVal + "원";
     }
-})
+})*/
 
 function goBack(){
     history.back();

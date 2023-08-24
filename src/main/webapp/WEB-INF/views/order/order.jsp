@@ -25,7 +25,29 @@
                         </div>
                         <div id="orderList">
                             <table id="orderTable">
-                
+	                        	<colgroup>
+	                        		<col width="20%">
+	                        		<col width="60%">
+	                        		<col width="20%">
+	                        	</colgroup>
+	                        	<c:forEach items="${cList }" var="cart">
+            						<tr>
+            							<td style="text-align:center;">
+            								<img alt="" src="${cart.pImagePath }">
+            							</td>
+            							<td>
+            								<p style="text-align:center;">
+            									<a href="/product/shopDesc.do?productNo=${cart.productNo }">${cart.productName }${cart.productColor }</a>
+            									
+            								</p>
+            							</td>
+            							<td>
+            								<p class="priceOne" style="text-align:center;">
+            									${cart.cartPrice }
+            								</p>
+            							</td>
+            						</tr>
+            					</c:forEach>                				
                             </table>
                         </div>
                         <div id="orderPrice">
@@ -81,7 +103,7 @@
                                     <input type="email" name="userEmail" id="user-email" class="order-form-field" required>
                                 </div>
                                 <div class="order-form-div">
-                                    <p>적립금 (사용가능 적립금 5,000원)</p>
+                                    <p>적립금 (사용가능 적립금 0원)</p>
                                     <p class="order-form-price">
                                         <input type="text" id="coin" class="order-form-field">원
                                     </p>

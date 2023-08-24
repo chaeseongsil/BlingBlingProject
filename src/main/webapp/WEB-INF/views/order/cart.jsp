@@ -67,8 +67,8 @@
                     <c:if test="${!empty cList}">
 	                    <div id="cartBtns">
 	                        <button id="deleteBtn">선택 상품 삭제</button>
-	                        <button onclick="goToOrderPage();">선택 상품 주문</button>
-	                        <button onclick="goToOrderPage();">전체 상품 주문</button>
+	                        <button id="selectOrder">선택 상품 주문</button>
+	                        <button id="allOrder">전체 상품 주문</button>
 	                    </div>
                     </c:if>
                 </div>
@@ -98,6 +98,28 @@
             		}
             	}
             	location.href = deleteUrl;
+            });
+            document.querySelector("#selectOrder").addEventListener("click", () => {
+            	const memberId = '${memberId}';
+            	let checkedItems = document.querySelectorAll(".checkCart");
+            	let selectOrderItems = document.querySelectorAll(".checkCart");
+            	let orderUrl = "/cart/sendOrder.do?memberId="+memberId
+				let sum = 0;
+            	for(let i = 0; i < checkedItems.length; i++){
+            		if(checkedItems[i].checked){
+            			sum++;
+            		}
+            		if(sum == 0){
+            			alert("주문하실 상품을 선택해주세요.");
+            			break;
+            		}
+            		if(checkedItems[i].checked){
+	            		orderUrl += "&cartNo="+ checkedItems[i].value;
+            		}
+            	}
+            	if(sum != 0){
+	            	location.href = orderUrl;
+            	}
             });
         </script>
         <script type="text/javascript" src="../resources/js/cart.js"></script>

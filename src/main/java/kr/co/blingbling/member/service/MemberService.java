@@ -17,4 +17,6 @@ public interface MemberService {
 	public Member selectOneFindId(Member mOne);
 
 	public Member selectOneFindPw(Member member);
+
+	public int selectIdCheck(String memberId);
 }

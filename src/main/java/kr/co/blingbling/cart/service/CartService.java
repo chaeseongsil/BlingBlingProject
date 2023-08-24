@@ -24,5 +24,11 @@ public interface CartService {
 	 * @return int
 	 */
 	public int deleteCart(int cartNo);
+	/**
+	 * 장바구니 번호로 조회 Service
+	 * @param cartNo
+	 * @return Cart
+	 */
+	public Cart selectOneByNo(int cartNo);
 
 }

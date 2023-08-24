@@ -28,6 +28,11 @@ public class CartServiceLogic implements CartStore{
 		int result = session.delete("CartMapper.deleteCart", cartNo);
 		return result;
 	}
-	
 
+	@Override
+	public Cart selectOneByNo(SqlSession session, int cartNo) {
+		Cart cart = session.selectOne("CartMapper.selectOneByNo", cartNo);
+		return cart;
+	}
+	
 }
