@@ -2,9 +2,9 @@
  * 
  */
 let price = document.querySelectorAll(".priceOne");
-let totalPrice = 0;
-for(let i = 0; i < price.length; i++){
-	totalPrice += parseInt(price[i].innerText);            	
+let totalPrice = parseInt(price[0].innerText);
+for(let i = 1; i < price.length; i++){
+	totalPrice += parseInt(price[i].value);
 }
 document.querySelector(".totalPrice1").innerText = totalPrice;
 document.querySelector(".totalPrice2").innerText = totalPrice;
@@ -36,16 +36,8 @@ const uName = document.querySelector("#user-name").value;
 const uAddr = document.querySelector("#user-post-addr2").value;
 const uTel = document.querySelector("#user-tel1").value
 document.querySelector("#orderForm").addEventListener("submit", (e) => {
-    if(uName !== null && uAddr !== null && uTel !== null){
-        alert("주문이 완료되었습니다. 감사합니다.");
-        location.href = "/member/myOrderList.jsp";
-    }
-    else {
+    if(uName === null || uAddr === null || uTel !== null){
         alert("입력 칸을 빠짐없이 작성해주세요.");
         return false;
     }
-})
-function paySuccess(){
-    alert("주문이 완료되었습니다. 감사합니다.");
-    location.href = "/member/myOrderList.jsp";
-}
+});

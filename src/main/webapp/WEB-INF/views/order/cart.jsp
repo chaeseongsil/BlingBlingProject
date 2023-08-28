@@ -121,6 +121,15 @@
 	            	location.href = orderUrl;
             	}
             });
+            document.querySelector("#allOrder").addEventListener("click", () => {
+            	const memberId = '${memberId}';
+            	let orderUrl = "/cart/sendOrder.do?memberId=" + memberId;
+            	let allCartsNo = document.querySelectorAll(".checkCart");
+            	for(let i = 0; i < allCartsNo.length; i++){
+            		orderUrl += "&cartNo=" + allCartsNo[i].value;
+            	}
+            	location.href = orderUrl;
+            });
         </script>
         <script type="text/javascript" src="../resources/js/cart.js"></script>
     </body>

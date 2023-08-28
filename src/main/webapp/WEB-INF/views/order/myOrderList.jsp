@@ -36,34 +36,17 @@
                                 <div class="pay">결제수단</div>
                                 <div class="state">처리현황</div>
                             </div>
-                            <div>
-                                <div class="date">2023/06/05</div>
-                                <div class="number"><a href="/member/myOrderListDesc.jsp?date=2023/06/05&number=20230605&img=../resources/images/product2.jpg&title=bold%20line%20necklace&pay=신용카드&state=상품%20준비중&price=170,000">20230605-0123456</a></div>
-                                <div class="productName">
-                                    <img src="../resources/images/product2.jpg" alt="bold line necklace">
-                                    <a href="/member/myOrderListDesc.jsp?date=2023/06/05&number=20230605&img=../resources/images/product2.jpg&title=bold%20line%20necklace&pay=신용카드&state=상품%20준비중&price=170,000">bold line necklace <small>외 1건</small></a></div>
-                                <div class="pay">신용카드</div>
-                                <div class="state">상품 준비중</div>
-                            </div>
-                            <div>
-                                <div class="date">2023/05/01</div>
-                                <div class="number"><a href="/member/myOrderListDesc.jsp?date=2023/05/01&number=20230501&img=../resources/images/four_pendants_necklace.jpg&title=four%20pendants%20necklace&pay=무통장%20입금&state=배송%20완료&price=240,000">20230501-0123456</a></div>
-                                <div class="productName">
-                                    <img src="../resources/images/four_pendants_necklace.jpg" alt="four pendants earring">
-                                    <a href="/member/myOrderListDesc.jsp?date=2023/05/01&number=20230501&img=../resources/images/four_pendants_necklace.jpg&title=four%20pendants%20necklace&pay=무통장%20입금&state=배송%20완료&price=240,000">four pendants necklace <small>외 2건</small></a></div>
-                                <div class="pay">무통장 입금</div>
-                                <div class="state">배송 완료</div>
-                            </div>
-                            <div>
-                                <div class="date">2023/04/06</div>
-                                <div class="number"><a href="/member/myOrderListDesc.jsp?date=2023/04/06&number=20230406&img=../resources/images/croissantring.jpg&title=croissant%20ring&pay=간편%20결제&state=배송%20완료&price=119,000">20230406-0123456</a></div>
-                                <div class="productName">
-                                    <img src="../resources/images/croissantring.jpg" alt="croissant ring">
-                                    <a href="/member/myOrderListDesc.jsp?date=2023/04/06&number=20230406&img=../resources/images/croissantring.jpg&title=croissant%20ring&pay=간편%20결제&state=배송%20완료&price=119,000">croissant ring <small>외 1건</small></a></div>
-                                <div class="pay">간편 결제</div>
-                                <div class="state">배송 완료</div>
-                            </div>
-                            
+                            <c:forEach items="${oList }" var="order">
+	                            <div>
+	                                <div class="date">${order.orderDate.toString().substring(0,11) }</div>
+	                                <div class="number"><a href="/order/detail.do?orderNo=${order.orderNo }">${order.orderNo }</a></div>
+	                                <div class="productName">
+	                                    <img src="../resources/images/product2.jpg" alt="bold line necklace">
+	                                    <a href="/order/detail.do?orderNo=${order.orderNo }">${order.orderName }</a></div>
+	                                <div class="pay">${order.payment }</div>
+	                                <div class="state">${order.orderStatus }</div>
+	                            </div>
+                            </c:forEach>
                         </div>
                         <div id="boardButton" class="pageBtn">
                             <button class="prev-btn">

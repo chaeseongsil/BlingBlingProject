@@ -13,12 +13,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.blingbling.cart.domain.Cart;
 import kr.co.blingbling.cart.service.CartService;
+import kr.co.blingbling.member.domain.Member;
+import kr.co.blingbling.member.service.MemberService;
 
 @Controller
 public class CartController {
 	
 	@Autowired
 	private CartService service;
+	@Autowired
+	private MemberService mService;
 	
 	@RequestMapping(value="/cart/insert.do", produces="text/html;charset=UTF-8;", method=RequestMethod.GET)
 	public @ResponseBody String addCart(
@@ -89,7 +93,9 @@ public class CartController {
 			Cart cart = service.selectOneByNo(cartNo[i]);
 			cList.add(cart);
 		}
+		Member member = mService.selectOneById(memberId);
 		model.addAttribute("cList", cList);
+		model.addAttribute("member", member);
 		return "order/order";
 			
 	}

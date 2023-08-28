@@ -30,23 +30,44 @@
 	                        		<col width="60%">
 	                        		<col width="20%">
 	                        	</colgroup>
-	                        	<c:forEach items="${cList }" var="cart">
-            						<tr>
-            							<td style="text-align:center;">
-            								<img alt="" src="${cart.pImagePath }">
-            							</td>
-            							<td>
-            								<p style="text-align:center;">
-            									<a href="/product/shopDesc.do?productNo=${cart.productNo }">${cart.productName }${cart.productColor }</a>
-            									
-            								</p>
-            							</td>
-            							<td>
-            								<p class="priceOne" style="text-align:center;">
-            									${cart.cartPrice }
-            								</p>
-            							</td>
-            						</tr>
+	                        	<c:forEach items="${cList }" var="cart" varStatus="i">
+	                        		<c:if test="${i.count == 1 }">
+	            						<tr>
+	            							<td style="text-align:center;">
+	            								<img alt="" src="${cart.pImagePath }">
+	            							</td>
+	            							<td>
+	            								<p style="text-align:center;">
+	            									<a href="/product/shopDesc.do?productNo=${cart.productNo }" id="orderName">
+	            										<input type="hidden" name="productNo" value="${cart.productNo }">
+	            										${cart.productName }${cart.productColor }
+	            										<c:if test="${cList.size() > 1 }">
+	            											외 ${cList.size() - 1 }건
+	            										</c:if>
+            										</a>
+	            								</p>
+	            							</td>
+	            							<td>
+	            								<p class="priceOne" style="text-align:center;">
+	            									${cart.cartPrice }
+	            								</p>
+	            							</td>
+	            						</tr>
+	                        		</c:if>
+	                        		<c:if test="${i.count > 1 }">
+	                        			<tr style="display:none;">
+	                        				<td>
+	                        					<input type="hidden" name="productNo" value="${cart.productNo }">
+	                        				</td>
+	                        				<td>
+	                        					<input type="hidden" name="productName" value="${cart.productName }">
+	                        					<input type="hidden" name="productColor" value="${cart.productColor }">
+	                        				</td>
+	                        				<td>
+	                        					<input type="hidden" class="priceOne" value="${cart.cartPrice }">
+	                        				</td>
+	                        			</tr>
+	                        		</c:if>
             					</c:forEach>                				
                             </table>
                         </div>
@@ -62,7 +83,10 @@
                             <p>배송 정보</p>
                         </div>
                         <div id="shipInfo">
-                            <form action="/member/myOrderList.jsp" id="orderForm" method="get">
+                            <form action="/order/insert.do" id="orderForm" method="post">
+                            	<input type="hidden" name="productId" id="sendProductNo" value="">
+                            	<input type="hidden" name="orderPrice" id="sendOrderPrice" value="">
+                            	<input type="hidden" name="orderName" id="sendOrderName" value="">
                                 <div class="order-form-div" id="orderCheckBox">
                                     <input type="radio" name="orderInfo" id="orderCheck-same" class="orderCheck"> 
                                     <label for="orderCheck-same">회원 정보와 동일</label> 
@@ -103,7 +127,7 @@
                                     <input type="email" name="userEmail" id="user-email" class="order-form-field" required>
                                 </div>
                                 <div class="order-form-div">
-                                    <p>적립금 (사용가능 적립금 0원)</p>
+                                    <p>적립금 (사용가능 적립금 ${member.point }원)</p>
                                     <p class="order-form-price">
                                         <input type="text" id="coin" class="order-form-field">원
                                     </p>
@@ -111,15 +135,15 @@
                                 <div class="order-form-div">
                                     <p id="pay">결제 수단</p>
                                     <div id="paySelect">
-                                        <input type="radio" name="selectPay" id="pay-accout">
+                                        <input type="radio" name="selectPay" id="pay-accout" value="계좌이체">
                                         <label for="pay-accout">실시간 계좌이체</label>
-                                        <input type="radio" name="selectPay" id="pay-card">
+                                        <input type="radio" name="selectPay" id="pay-card" value="신용카드">
                                         <label for="pay-card">신용카드</label> 
-                                        <input type="radio" name="selectPay" id="pay-phone">
+                                        <input type="radio" name="selectPay" id="pay-phone" value="휴대폰 결제">
                                         <label for="pay-phone">휴대폰 결제</label>
-                                        <input type="radio" name="selectPay" id="pay-deposit">
+                                        <input type="radio" name="selectPay" id="pay-deposit" value="무통장 입금">
                                         <label for="pay-deposit">무통장 입금</label>
-                                        <input type="radio" name="selectPay" id="pay-pay">
+                                        <input type="radio" name="selectPay" id="pay-pay" value="간편 결제">
                                         <label for="pay-pay">간편 결제</label>
                                     </div>
                                 </div>
@@ -181,6 +205,39 @@
             function alertLogin(){
 	           	alert("로그인이 필요한 서비스입니다.");
             }
+            document.querySelector("#orderCheck-same").addEventListener("change", ()=>{
+            	document.querySelector("#user-name").value = '${member.memberName}';
+            	document.querySelector("#user-post").value = '${member.memberPostCode}';
+            	document.querySelector("#user-post-addr1").value = '${member.memberAddr1}';
+            	document.querySelector("#user-post-addr2").value = '${member.memberAddr2}';
+            	document.querySelector("#user-tel1").value = '${member.memberPhone.substring(0,3)}';
+            	document.querySelector("#user-tel2").value = '${member.memberPhone.substring(3,11)}';
+            	document.querySelector("#user-email").value= '${member.memberEmail}';
+            });
+            document.querySelector("#orderCheck-new").addEventListener("change", ()=>{
+            	document.querySelector("#user-name").value = "";
+            	document.querySelector("#user-post").value = "";
+            	document.querySelector("#user-post-addr1").value = "";
+            	document.querySelector("#user-post-addr2").value = "";
+            	document.querySelector("#user-tel1").value = "";
+            	document.querySelector("#user-tel2").value = "";
+            	document.querySelector("#user-email").value= "";
+            });
+            document.querySelector("#orderForm").addEventListener("submit", () => {
+            	let productNos = document.getElementsByName("productNo");
+            	let str = "";
+            	for(let i = 0; i < productNos.length; i++){
+            		if(i == productNos.length - 1){
+            			str += productNos[i].value;
+            		}else{
+	            		str += productNos[i].value + ",";
+            		}
+            	}
+            	document.querySelector("#sendProductNo").value = str;
+            	document.querySelector("#sendOrderName").value = document.querySelector("#orderName").innerText;
+            	document.querySelector("#sendOrderPrice").value = document.querySelector(".totalPrice2").innerText;
+            	form.submit();
+            });
         </script>
         <script type="text/javascript" src="../resources/js/order.js"></script>
     </body>

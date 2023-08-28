@@ -37,7 +37,7 @@
 	                                    <ul>
 	                                   		<li><a href="/member/myInfo.do?member-id=${memberId }">회원 정보 수정</a></li>
 	                                        <li><a href="/cart/list.do?memberId=${ memberId}">장바구니</a></li>
-	                                        <li><a href="/member/myOrderList.jsp">주문 내역</a></li>
+	                                        <li><a href="/order/list.do?memberId=${memberId }">주문 내역</a></li>
 	                                        <li><a href="/myQna/list.do?memberId=${memberId }&currentPage=1">나의 문의 내역</a></li>
 	                                    </ul>
 		                            </div>
