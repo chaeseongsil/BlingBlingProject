@@ -19,6 +19,11 @@ public interface CartService {
 	 */
 	public List<Cart> selectAllCarts(String memberId);
 	/**
+	 * 주문시 카트 상태 변경 Service
+	 * @param cartNo
+	 */
+	public int updateCartStatus(int cartNo);
+	/**
 	 * 장바구니 삭제 Service
 	 * @param cartNo
 	 * @return int
@@ -30,5 +35,11 @@ public interface CartService {
 	 * @return Cart
 	 */
 	public Cart selectOneByNo(int cartNo);
+	/**
+	 * 비활성화 카트 선택 Service
+	 * @param parseInt
+	 * @return Cart
+	 */
+	public Cart selectCartStatusN(int cartNo);
 
 }

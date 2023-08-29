@@ -34,7 +34,7 @@
 	                        		<c:if test="${i.count == 1 }">
 	            						<tr>
 	            							<td style="text-align:center;">
-	            								<img alt="" src="${cart.pImagePath }">
+	            								<img alt="${cart.productName }" src="${cart.pImagePath }">
 	            							</td>
 	            							<td>
 	            								<p style="text-align:center;">
@@ -45,6 +45,7 @@
 	            											외 ${cList.size() - 1 }건
 	            										</c:if>
             										</a>
+            										<input type="hidden" name="cartNo" value="${cart.cartNo }">
 	            								</p>
 	            							</td>
 	            							<td>
@@ -64,6 +65,7 @@
 	                        					<input type="hidden" name="productColor" value="${cart.productColor }">
 	                        				</td>
 	                        				<td>
+	                        					<input type="hidden" name="cartNo" value="${cart.cartNo }">
 	                        					<input type="hidden" class="priceOne" value="${cart.cartPrice }">
 	                        				</td>
 	                        			</tr>
@@ -87,6 +89,7 @@
                             	<input type="hidden" name="productId" id="sendProductNo" value="">
                             	<input type="hidden" name="orderPrice" id="sendOrderPrice" value="">
                             	<input type="hidden" name="orderName" id="sendOrderName" value="">
+                            	<input type="hidden" name="cartNums" id="sendCartNo" value="">
                                 <div class="order-form-div" id="orderCheckBox">
                                     <input type="radio" name="orderInfo" id="orderCheck-same" class="orderCheck"> 
                                     <label for="orderCheck-same">회원 정보와 동일</label> 
@@ -225,17 +228,23 @@
             });
             document.querySelector("#orderForm").addEventListener("submit", () => {
             	let productNos = document.getElementsByName("productNo");
+            	let cartNums = document.getElementsByName("cartNo");
             	let str = "";
+            	let cartStrs = "";
             	for(let i = 0; i < productNos.length; i++){
             		if(i == productNos.length - 1){
+            			cartStrs += cartNums[i].value;
             			str += productNos[i].value;
             		}else{
+            			cartStrs += cartNums[i].value + ",";
 	            		str += productNos[i].value + ",";
             		}
             	}
+            	
             	document.querySelector("#sendProductNo").value = str;
             	document.querySelector("#sendOrderName").value = document.querySelector("#orderName").innerText;
             	document.querySelector("#sendOrderPrice").value = document.querySelector(".totalPrice2").innerText;
+            	document.querySelector("#sendCartNo").value = cartStrs;
             	form.submit();
             });
         </script>

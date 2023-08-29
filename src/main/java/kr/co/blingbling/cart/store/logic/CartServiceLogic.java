@@ -18,9 +18,9 @@ public class CartServiceLogic implements CartStore{
 	}
 
 	@Override
-	public List<Cart> selectAllCarts(SqlSession session, String memberId) {
-		List<Cart> cList = session.selectList("CartMapper.selectAllCarts", memberId);
-		return cList;
+	public int updateCartStatus(SqlSession session, int cartNo) {
+		int result = session.update("CartMapper.updateCartStatus", cartNo);
+		return result;
 	}
 
 	@Override
@@ -30,8 +30,20 @@ public class CartServiceLogic implements CartStore{
 	}
 
 	@Override
+	public List<Cart> selectAllCarts(SqlSession session, String memberId) {
+		List<Cart> cList = session.selectList("CartMapper.selectAllCarts", memberId);
+		return cList;
+	}
+
+	@Override
 	public Cart selectOneByNo(SqlSession session, int cartNo) {
 		Cart cart = session.selectOne("CartMapper.selectOneByNo", cartNo);
+		return cart;
+	}
+
+	@Override
+	public Cart selectCartStatusN(SqlSession session, int cartNo) {
+		Cart cart = session.selectOne("CartMapper.selectCartStatusN", cartNo);
 		return cart;
 	}
 	

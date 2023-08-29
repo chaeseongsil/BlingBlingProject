@@ -32,18 +32,36 @@
                             <div class="top">
                                 <div class="date">주문일자</div>
                                 <div class="number">주문번호</div>
-                                <div class="productName">상품명</div>
+                                <div class="productName" style="padding-left:200px;">상품명</div>
                                 <div class="pay">결제수단</div>
                                 <div class="state">처리현황</div>
                             </div>
                             <div>
-                                <div class="date" id="dateOn"></div>
-                                <div class="number"><a href="" id="numberOn"></a></div>
+                                <div class="date" id="dateOn">${order.orderDate.toString().substring(0,11) }</div>
+                                <div class="number"><a href="" id="numberOn">${order.orderNo }</a></div>
                                 <div class="productName">
-                                    <img id="imgOn" src="" alt="">
-                                    <span id="pNameOn"></span></div>
-                                <div class="pay" id="payOn"></div>
-                                <div class="state" id="stateOn"></div>
+                                    <span id="pNameOn">${order.orderName }<a href="#" id="showDetail">상세 보기</a></span>
+                                </div>
+                                <div class="pay" id="payOn">${order.payment }</div>
+                                <div class="state" id="stateOn">${order.orderStatus }</div>
+                            </div>
+                            <div id="detailDiv">
+                            	<c:forEach items="${cList }" var="cart">
+                            		<div class="cart-item">
+		                            	<div class="date"></div>
+		                            	<div class="number">
+		                            		<img alt="" src="${cart.pImagePath }" style="width:25%;">
+		                            	</div>
+	                            		<div class="productName">
+		                            		<a href="/product/shopDesc.do?productNo=${cart.productNo }">
+		                            			${cart.productName }${cart.productColor }
+		                            		</a>
+	                            		</div>
+	                            		<div class="pay">${cart.amount }</div>
+	                            		<div class="state">${cart.cartPrice }</div>
+                            		</div>
+                            	</c:forEach>
+                            	
                             </div>
                         </div>
                         <div class="orderSpecific">
@@ -51,26 +69,26 @@
                                 <div class="orderSpecTitle">결제 정보</div>
                                 <div>
                                     <span>주문 금액</span>
-                                    <span id="priceOn"></span>
+                                    <span id="priceOn">${order.orderPrice }</span>
                                 </div>
                                 <div>
                                     <span>결제 수단</span>
-                                    <span id="payOn1"></span>
+                                    <span id="payOn1">${order.payment }<a href='#'> 명세서 보기 </a></span>
                                 </div>
                             </div>
                             <div class="orderSpec">
                                 <div class="orderSpecTitle">배송지 정보</div>
                                 <div>
                                     <span>받으시는 분</span>
-                                    <span>아무개</span>
+                                    <span>${order.memberName }</span>
                                 </div>
                                 <div>
                                     <span>우편번호</span>
-                                    <span>01234</span>
+                                    <span>${order.memberPostCode }</span>
                                 </div>
                                 <div>
                                     <span>배송지 주소</span>
-                                    <span>서울시 중구 남대문로 120</span>
+                                    <span>${order.memberAddr1} ${order.memberAddr2 }</span>
                                 </div>
                             </div>
                         </div>
@@ -85,6 +103,15 @@
             <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
         </div>
         <script>
+        	document.querySelector("#showDetail").addEventListener("click", () => {
+        		/* const detailDiv = document.querySelector("#detailDiv");
+        		if(detailDiv.style.display == "none"){
+        			detailDiv.style.display = 'block';
+        		}else{
+        			detailDiv.style.display = 'none';
+        		} */
+        		detailDiv.classList.toggle("active");
+        	});
             var logout = document.querySelector("#logoutBtn");
             logout.addEventListener("click", () => {
                 var isLogout = confirm("정말 로그아웃 하시겠습니까?");
@@ -93,7 +120,7 @@
                     location.href="/member/logout.do";
                 }
             });
-            const urlParams = new URLSearchParams(window.location.search);
+           /*  const urlParams = new URLSearchParams(window.location.search);
             const orderDate = urlParams.get('date');
             const orderNumber = urlParams.get('number');
             const orderImg = urlParams.get('img');
@@ -108,11 +135,10 @@
             document.querySelector("#payOn").innerText = orderPay;
             document.querySelector("#payOn1").innerHTML = orderPay +"<a href='#'> 명세서 보기 </a>";
             document.querySelector("#stateOn").innerText = orderState;
-            document.querySelector("#priceOn").innerText = orderPrice;
+            document.querySelector("#priceOn").innerText = orderPrice; */
 
             function goBack(){
-                // history.back();
-                location.href="/member/myReviewWrite.jsp?image="+urlParams.get('img')+"&title=" + urlParams.get('title');
+                history.back();
             }
 
             function changeItem(){

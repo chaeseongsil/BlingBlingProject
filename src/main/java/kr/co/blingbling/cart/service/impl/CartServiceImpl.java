@@ -25,9 +25,9 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public List<Cart> selectAllCarts(String memberId) {
-		List<Cart> cList = cStore.selectAllCarts(session, memberId);
-		return cList;
+	public int updateCartStatus(int cartNo) {
+		int result = cStore.updateCartStatus(session, cartNo);
+		return result;
 	}
 
 	@Override
@@ -37,8 +37,20 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
+	public List<Cart> selectAllCarts(String memberId) {
+		List<Cart> cList = cStore.selectAllCarts(session, memberId);
+		return cList;
+	}
+
+	@Override
 	public Cart selectOneByNo(int cartNo) {
 		Cart cart = cStore.selectOneByNo(session, cartNo);
+		return cart;
+	}
+
+	@Override
+	public Cart selectCartStatusN(int cartNo) {
+		Cart cart = cStore.selectCartStatusN(session, cartNo);
 		return cart;
 	}
 }

@@ -18,11 +18,18 @@
 		<result property="payment" 			column="PAYMENT"/>
 		<result property="orderPrice" 		column="ORDER_PRICE"/>
 		<result property="orderStatus" 		column="ORDER_STATUS"/>
+		<result property="cartNums" 		column="CART_NUMS"/>
 	</resultMap>
 	<insert id="insertOrder">
-		INSERT INTO ORDER_TBL VALUES(#{orderNo}, #{memberId}, #{productNo}, #{orderName}, #{memberName}, #{memberPostCode}, #{memberAddr1}, #{memberAddr2}, #{memberPhone}, #{memberEmail}, DEFAULT, #{payment}, #{orderPrice}, DEFAULT)
+		INSERT INTO ORDER_TBL VALUES(#{orderNo}, #{memberId}, #{productNo}, #{orderName}, #{memberName}, #{memberPostCode}, #{memberAddr1}, #{memberAddr2}, #{memberPhone}, #{memberEmail}, DEFAULT, #{payment}, #{orderPrice}, DEFAULT, #{cartNums})
 	</insert>
 	<select id="selectOrderList" resultMap="orderResultMap">
 		SELECT * FROM ORDER_TBL WHERE MEMBER_ID = #{memberId} ORDER BY ORDER_DATE DESC
+	</select>
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*) FROM ORDER_TBL WHERE MEMBER_ID = #{memberId}
+	</select>
+	<select id="selectOneByNo" resultMap="orderResultMap">
+		SELECT * FROM ORDER_TBL WHERE ORDER_NO = #{orderNo}
 	</select>
 </mapper>

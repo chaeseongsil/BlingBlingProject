@@ -12,17 +12,24 @@
 		<result property="pImagePath" column="P_IMAGE_PATH"/>
 		<result property="amount" 		column="AMOUNT"/>
 		<result property="cartPrice" 	column="CART_PRICE"/>
+		<result property="cartStatus" 	column="CART_STATUS"/>
 	</resultMap>
 	<insert id="insertCart">
-		INSERT INTO CART_TBL VALUES(SEQ_CART_NO.NEXTVAL, #{memberId}, #{productNo}, #{productName}, #{productColor}, #{pImagePath}, #{amount}, #{cartPrice})
+		INSERT INTO CART_TBL VALUES(SEQ_CART_NO.NEXTVAL, #{memberId}, #{productNo}, #{productName}, #{productColor}, #{pImagePath}, #{amount}, #{cartPrice}, DEFAULT)
 	</insert>
+	<update id="updateCartStatus">
+		UPDATE CART_TBL SET CART_STATUS = 'N' WHERE CART_NO = #{cartNo}
+	</update>
 	<delete id="deleteCart">
 		DELETE FROM CART_TBL WHERE CART_NO = #{cartNo}
 	</delete>
 	<select id="selectAllCarts" resultMap="cartResultMap">
-		SELECT * FROM CART_TBL WHERE MEMBER_ID = #{memberId}
+		SELECT * FROM CART_TBL WHERE MEMBER_ID = #{memberId} AND CART_STATUS = 'Y'
 	</select>
 	<select id="selectOneByNo" resultMap="cartResultMap">
-		SELECT * FROM CART_TBL WHERE CART_NO = #{cartNo}
+		SELECT * FROM CART_TBL WHERE CART_NO = #{cartNo} AND CART_STATUS = 'Y'
+	</select>
+	<select id="selectCartStatusN" resultMap="cartResultMap">
+		SELECT * FROM CART_TBL WHERE CART_NO = #{cartNo} AND CART_STATUS = 'N'
 	</select>
 </mapper>

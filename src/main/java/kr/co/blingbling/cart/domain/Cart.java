@@ -9,6 +9,7 @@ public class Cart {
 	private String pImagePath;
 	private int amount;
 	private int cartPrice;
+	private String cartStatus;
 	
 	public Cart() {}
 	
@@ -87,12 +88,20 @@ public class Cart {
 	public void setCartPrice(int cartPrice) {
 		this.cartPrice = cartPrice;
 	}
+	
+	public String getCartStatus() {
+		return cartStatus;
+	}
+
+	public void setCartStatus(String cartStatus) {
+		this.cartStatus = cartStatus;
+	}
 
 	@Override
 	public String toString() {
-		return "Cart [cartNo=" + cartNo + ", memberId=" + memberId + ", productNo=" + productNo + ", productName="
-				+ productName + ", productColor=" + productColor + ", pImagePath=" + pImagePath + ", amount=" + amount
-				+ ", cartPrice=" + cartPrice + "]";
+		return "장바구니 [장바구니번호=" + cartNo + ", 아이디=" + memberId + ", 상품번호=" + productNo + ", 상품이름="
+				+ productName + ", 상품색상=" + productColor + ", 상품이미지=" + pImagePath + ", 선택수량=" + amount
+				+ ", 상품가격=" + cartPrice + ", 사용여부=" + cartStatus +"]";
 	}
 	
 }

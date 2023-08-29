@@ -36,7 +36,7 @@ const uName = document.querySelector("#user-name").value;
 const uAddr = document.querySelector("#user-post-addr2").value;
 const uTel = document.querySelector("#user-tel1").value
 document.querySelector("#orderForm").addEventListener("submit", (e) => {
-    if(uName === null || uAddr === null || uTel !== null){
+    if(uName === null || uAddr === null || uTel === null){
         alert("입력 칸을 빠짐없이 작성해주세요.");
         return false;
     }

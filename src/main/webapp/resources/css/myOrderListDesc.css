@@ -55,6 +55,22 @@ main {
     font-size: 1rem;
     font-family: 'Noto Sans KR', sans-serif;
 }
+#detailDiv {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s;
+	display: flex;
+    flex-direction: column;
+}
+
+#detailDiv.active {
+    max-height: 400px; /* 충분한 큰 값 */
+    transition: max-height 0.3s;
+}
+.cart-item {
+    flex: 1;
+    margin: 10px 0;
+}
 
 .orderList > div.top > div {
     font-weight: 600;

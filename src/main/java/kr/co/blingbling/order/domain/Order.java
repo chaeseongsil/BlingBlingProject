@@ -17,12 +17,13 @@ public class Order {
 	private String payment;
 	private int orderPrice;
 	private String orderStatus;
+	private String cartNums;
 	
 	public Order() {}
 	
 	public Order(String orderNo, String memberId, String productNo, String orderName, String memberName,
 			String memberPostCode, String memberAddr1, String memberAddr2, String memberPhone, String memberEmail,
-			String payment, int orderPrice) {
+			String payment, int orderPrice, String cartNums) {
 		super();
 		this.orderNo = orderNo;
 		this.memberId = memberId;
@@ -36,6 +37,7 @@ public class Order {
 		this.memberEmail = memberEmail;
 		this.payment = payment;
 		this.orderPrice = orderPrice;
+		this.cartNums = cartNums;
 	}
 
 	public String getOrderNo() {
@@ -122,13 +124,20 @@ public class Order {
 	public void setOrderStatus(String orderStatus) {
 		this.orderStatus = orderStatus;
 	}
+	public String getCartNums() {
+		return cartNums;
+	}
+	public void setCartNums(String cartNums) {
+		this.cartNums = cartNums;
+	}
+
 	@Override
 	public String toString() {
 		return "주문내역 [주문번호=" + orderNo + ", 아이디=" + memberId + ", 상품번호=" + productNo + ", 상품이름="
 				+ orderName + ", 주문자이름=" + memberName + ", 우편번호=" + memberPostCode + ", 기본주소="
 				+ memberAddr1 + ", 상세주소=" + memberAddr2 + ", 연락처=" + memberPhone + ", 이메일="
 				+ memberEmail + ", 주문일자=" + orderDate + ", 결제수단=" + payment + ", 주문금액=" + orderPrice
-				+ ", 주문상태=" + orderStatus + "]";
+				+ ", 주문상태=" + orderStatus + ", 카트번호=" + cartNums + "]";
 	}
 	
 }

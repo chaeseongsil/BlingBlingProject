@@ -16,12 +16,12 @@ public interface CartStore {
 	 */
 	public int insertCart(SqlSession session, Cart cart);
 	/**
-	 * 회원별 장바구니 조회 Service
+	 * 주문시 카트 상태 변경 Store
 	 * @param session
-	 * @param memberId 
-	 * @return List<Cart>
+	 * @param cartNo
+	 * @return int
 	 */
-	public List<Cart> selectAllCarts(SqlSession session, String memberId);
+	public int updateCartStatus(SqlSession session, int cartNo);
 	/**
 	 * 장바구니 삭제 Service
 	 * @param session
@@ -30,11 +30,25 @@ public interface CartStore {
 	 */
 	public int deleteCart(SqlSession session, int cartNo);
 	/**
+	 * 회원별 장바구니 조회 Service
+	 * @param session
+	 * @param memberId 
+	 * @return List<Cart>
+	 */
+	public List<Cart> selectAllCarts(SqlSession session, String memberId);
+	/**
 	 * 장바구니 번호로 조회 Store
 	 * @param session
 	 * @param cartNo
 	 * @return Cart
 	 */
 	public Cart selectOneByNo(SqlSession session, int cartNo);
+	/**
+	 * 비활성화 카트 선택 Store
+	 * @param session
+	 * @param cartNo
+	 * @return Cart
+	 */
+	public Cart selectCartStatusN(SqlSession session, int cartNo);
 
 }

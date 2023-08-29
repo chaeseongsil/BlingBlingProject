@@ -32,7 +32,7 @@
                             <div class="top">
                                 <div class="date">주문일자</div>
                                 <div class="number">주문번호</div>
-                                <div class="productName">상품명</div>
+                                <div class="productName" style="padding-left : 250px;">상품명</div>
                                 <div class="pay">결제수단</div>
                                 <div class="state">처리현황</div>
                             </div>
@@ -41,7 +41,7 @@
 	                                <div class="date">${order.orderDate.toString().substring(0,11) }</div>
 	                                <div class="number"><a href="/order/detail.do?orderNo=${order.orderNo }">${order.orderNo }</a></div>
 	                                <div class="productName">
-	                                    <img src="../resources/images/product2.jpg" alt="bold line necklace">
+	                                    <!-- <img src="../resources/images/product2.jpg" alt="bold line necklace"> -->
 	                                    <a href="/order/detail.do?orderNo=${order.orderNo }">${order.orderName }</a></div>
 	                                <div class="pay">${order.payment }</div>
 	                                <div class="state">${order.orderStatus }</div>
@@ -49,7 +49,27 @@
                             </c:forEach>
                         </div>
                         <div id="boardButton" class="pageBtn">
-                            <button class="prev-btn">
+                        	<c:if test="${pInfo.startNavi != 1 }">
+								<c:url var="pageUrl" value="/order/list.do">
+									<c:param name="page" value="${pInfo.startNavi-1 }"></c:param>
+								</c:url>
+									<a href="${pageUrl }"class="prev-btn"><img src="https://cdn-icons-png.flaticon.com/512/271/271220.png" alt=""> </a>
+							</c:if>
+							<c:forEach begin="${pInfo.startNavi }" end="${pInfo.endNavi }" var="p">
+								<c:url var="pageUrl" value="/order/list.do">
+									<c:param name="page" value="${p }"></c:param>
+								</c:url>
+								<div class="page-numbers">
+                                	<span class="page-number"><a href="${pageUrl }">${p }</a>&nbsp;</span>
+                          	 	</div>
+							</c:forEach>
+							<c:if test="${pInfo.endNavi ne pInfo.naviTotalCount }">
+								<c:url var="pageUrl" value="/order/list.do">
+									<c:param name="page" value="${pInfo.endNavi+1 }"></c:param>
+								</c:url>
+									<a href="${pageUrl }"class="prev-btn"><img src="https://cdn-icons-png.flaticon.com/512/87/87425.png" alt=""> </a>
+							</c:if>
+                            <%-- <button class="prev-btn">
                                 <img src="https://cdn-icons-png.flaticon.com/512/271/271220.png" alt="<">
                             </button>
                             <div class="page-numbers">
@@ -59,7 +79,7 @@
                             </div>
                             <button class="next-btn">
                                 <img src="https://cdn-icons-png.flaticon.com/512/87/87425.png" alt=">">
-                            </button>
+                            </button> --%>
                         </div>
                         
                     </div>
