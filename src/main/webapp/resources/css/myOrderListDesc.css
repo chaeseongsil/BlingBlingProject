@@ -1,6 +1,6 @@
 main {
     width : 1500px;
-    height : 1200px;
+    /*height : 1200px;*/
 }
 #mainWrap{
     width : 1200px;
@@ -49,7 +49,7 @@ main {
 }
 
 .orderList > div > div {
-    display: inline-block;
+    display: inline-flex;
     padding: 15px 0;
     text-align: center;
     font-size: 1rem;
@@ -64,7 +64,7 @@ main {
 }
 
 #detailDiv.active {
-    max-height: 400px; /* 충분한 큰 값 */
+    max-height: 800px; /* 충분한 큰 값 */
     transition: max-height 0.3s;
 }
 .cart-item {
@@ -75,7 +75,7 @@ main {
 .orderList > div.top > div {
     font-weight: 600;
 }
-.orderList>div:not(:first-of-type) {
+.second {
     height : 150px;
     line-height : 120px;
 }
@@ -161,7 +161,7 @@ input[type="checkbox"]:checked {
             font-family: 'Noto Sans KR', sans-serif;
             font-size : 0.9rem;
         }
-        #payOn1 > a {
+        #payOn1 > a, #showDetail, #goReview {
             color : #de9564;
             text-decoration: underline;
         }

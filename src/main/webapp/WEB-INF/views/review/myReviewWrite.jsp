@@ -28,50 +28,53 @@
                         <p>REVIEW</p>
                     </div>
                     <div class="boardWriteWrap">
-                        <div class="boardWrite">
-                            <div class="title reviewDiv">
-                                <dl>
-                                    <dt>상품</dt>
-                                    <dd id="reviewProduct">
-                                        <!-- <input type="text" placeholder="제목을 입력하세요."> -->
-                                    </dd>
-                                </dl>
-                                <dl id="star">
-                                    <dt>나의 별점</dt>
-                                    <dd id="stardd">
-                                        <input type="radio" name="reviewStar" value="5" id="rate1">
-                                        <label for="rate1">★</label>
-                                        <input type="radio" name="reviewStar" value="4" id="rate2">
-                                        <label for="rate2">★</label>
-                                        <input type="radio" name="reviewStar" value="3" id="rate3">
-                                        <label for="rate3">★</label>
-                                        <input type="radio" name="reviewStar" value="2" id="rate4">
-                                        <label for="rate4">★</label>
-                                        <input type="radio" name="reviewStar" value="1" id="rate5">
-                                        <label for="rate5">★</label>
-                                    </dd>
-                                </dl>
-                            </div>
-                            <div class="info">
-                                <dl>
-                                    <dt>제목</dt>
-                                    <dd><input type="text" placeholder="제목을 입력하세요."></dd>
-                                </dl>
-                                <dl>
-                                    <dt>파일첨부</dt>
-                                    <dd>
-                                        <input type="file" name="orderFile" id="orderChangeFile" multiple>
-                                    </dd>
-                                </dl>
-                            </div>
-                            <div class="cont">
-                                <textarea placeholder="리뷰 작성시 적립금 2000원을 드립니다."></textarea>
-                            </div>
-                        </div>
-                        <div class="bt_wrap" id="bt_btn">
-                            <button onclick="goMyOrderList();">등록</button>
-                            <!--<a href="#">수정</a>-->
-                        </div>
+                       	<form action="/review/insert.do" method="post">
+	                       <div class="boardWrite">
+	                           <div class="title reviewDiv">
+	                               <dl>
+	                                   <dt>상품</dt>
+	                                   <dd id="reviewProduct" style="display: flex;align-items: center;">
+	                                   	<img alt="" src="${product.pImagePath }">
+	                                       ${product.productName }
+	                                   </dd>
+	                               </dl>
+	                               <dl id="star">
+	                                   <dt>나의 별점</dt>
+	                                   <dd id="stardd">
+	                                       <input type="radio" name="reviewStar" value="5" id="rate1">
+	                                       <label for="rate1">★</label>
+	                                       <input type="radio" name="reviewStar" value="4" id="rate2">
+	                                       <label for="rate2">★</label>
+	                                       <input type="radio" name="reviewStar" value="3" id="rate3">
+	                                       <label for="rate3">★</label>
+	                                       <input type="radio" name="reviewStar" value="2" id="rate4">
+	                                       <label for="rate4">★</label>
+	                                       <input type="radio" name="reviewStar" value="1" id="rate5">
+	                                       <label for="rate5">★</label>
+	                                   </dd>
+	                               </dl>
+	                           </div>
+	                           <div class="info">
+	                               <dl>
+	                                   <dt>제목</dt>
+	                                   <dd><input type="text" placeholder="제목을 입력하세요."></dd>
+	                               </dl>
+	                               <dl>
+	                                   <dt>파일첨부</dt>
+	                                   <dd>
+	                                       <input type="file" name="orderFile" id="orderChangeFile" multiple>
+	                                   </dd>
+	                               </dl>
+	                           </div>
+	                           <div class="cont">
+	                               <textarea placeholder="리뷰 작성시 적립금 2000원을 드립니다."></textarea>
+	                           </div>
+	                       </div>
+	                       <div class="bt_wrap" id="bt_btn">
+	                           <button type="submit">등록</button>
+	                           <!--<a href="#">수정</a>-->
+	                       </div>
+                       	</form>
                     </div>
                 </div>
             </main>
@@ -86,14 +89,7 @@
                     location.href="/member/logout.do";
                 }
             });
-            const urlParams = new URLSearchParams(window.location.search);
-            const reviewImg = urlParams.get('image');
-            const reviewPTitle = urlParams.get('title');
-            document.querySelector("#reviewProduct").innerHTML = "<img src="+reviewImg +"><span>" + reviewPTitle + "</span>";
-            function goMyOrderList(){
-                alert("리뷰가 등록되었습니다. 감사합니다.");
-                location.href="/member/myOrderList.jsp";
-            }
+            
             function alertLogin(){
 	           	alert("로그인이 필요한 서비스입니다.");
             }

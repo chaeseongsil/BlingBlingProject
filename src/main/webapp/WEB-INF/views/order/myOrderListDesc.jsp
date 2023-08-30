@@ -22,7 +22,7 @@
     <body>
         <div id="container">
             <jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
-            <main>
+            <main style="height:1200px;">
                 <div id="mainWrap">
                     <div class="board-title">
                         <p>주문 내역</p>
@@ -36,7 +36,7 @@
                                 <div class="pay">결제수단</div>
                                 <div class="state">처리현황</div>
                             </div>
-                            <div>
+                            <div class="second">
                                 <div class="date" id="dateOn">${order.orderDate.toString().substring(0,11) }</div>
                                 <div class="number"><a href="" id="numberOn">${order.orderNo }</a></div>
                                 <div class="productName">
@@ -46,15 +46,18 @@
                                 <div class="state" id="stateOn">${order.orderStatus }</div>
                             </div>
                             <div id="detailDiv">
-                            	<c:forEach items="${cList }" var="cart">
+                            	<c:forEach items="${cList }" var="cart" varStatus="i">
                             		<div class="cart-item">
-		                            	<div class="date"></div>
+		                            	<div class="date">${i.count}</div>
 		                            	<div class="number">
 		                            		<img alt="" src="${cart.pImagePath }" style="width:25%;">
 		                            	</div>
 	                            		<div class="productName">
 		                            		<a href="/product/shopDesc.do?productNo=${cart.productNo }">
 		                            			${cart.productName }${cart.productColor }
+		                            		</a>
+		                            		<a href="/review/insert.do?productNo=${cart.productNo }" id="goReview">
+		                            			리뷰 작성하기
 		                            		</a>
 	                            		</div>
 	                            		<div class="pay">${cart.amount }</div>
@@ -94,7 +97,7 @@
                         </div>
                         <div id="boardButton" class="pageBtn">
                             <button onclick="changeItem();">교환/반품 신청</button>
-                            <button onclick="goBack();">리뷰 작성하기</button>
+                            <button onclick="goBack();">뒤로가기</button>
                         </div>
                         
                     </div>
@@ -104,14 +107,40 @@
         </div>
         <script>
         	document.querySelector("#showDetail").addEventListener("click", () => {
-        		/* const detailDiv = document.querySelector("#detailDiv");
-        		if(detailDiv.style.display == "none"){
-        			detailDiv.style.display = 'block';
-        		}else{
-        			detailDiv.style.display = 'none';
-        		} */
-        		detailDiv.classList.toggle("active");
+        		const detailDiv = document.getElementById("detailDiv");
+        	    const cListItems = document.querySelectorAll(".cart-item");
+        	    
+        	    // cList 항목 수에 따라 원하는 높이 계산
+        	    const desiredHeight = cListItems.length * 50;
+        	    const main = document.querySelector("main");
+        	    // detailDiv에 'active' 클래스 토글
+        	    
+        	    // detailDiv의 max-height 설정
+        	    if (detailDiv.classList.contains("active")) {
+	        	    detailDiv.classList.remove("active");
+        	        main.style.height = `1200px`;
+        	    } else {
+        	    	detailDiv.classList.add("active");
+        	        detailDiv.style.maxHeight = `${desiredHeight}px`;
+        	        main.style.height = ``;
+        	    }
+        	    
+        	    // 페이지 높이 조정
+        	    adjustPageHeight();
         	});
+        	function adjustPageHeight() {
+        	    // 전체 페이지의 새로운 높이 계산
+        	    const mainWrap = document.getElementById("mainWrap");
+        	    const detailDiv = document.getElementById("detailDiv");
+        	    const newPageHeight = mainWrap.clientHeight + detailDiv.clientHeight;
+        	    const mainHeight = newPageHeight - 100;
+        	    
+        	    // 컨테이너 또는 body 요소의 새로운 높이 설정
+        	    const container = document.getElementById("container");
+        	    const main = document.querySelector("main");
+        	    container.style.height = `${newPageHeight}px`;
+        	    main.style.height = `${mainHeight}px`;
+        	}
             var logout = document.querySelector("#logoutBtn");
             logout.addEventListener("click", () => {
                 var isLogout = confirm("정말 로그아웃 하시겠습니까?");
@@ -120,23 +149,6 @@
                     location.href="/member/logout.do";
                 }
             });
-           /*  const urlParams = new URLSearchParams(window.location.search);
-            const orderDate = urlParams.get('date');
-            const orderNumber = urlParams.get('number');
-            const orderImg = urlParams.get('img');
-            const orderTitle = urlParams.get('title');
-            const orderPay = decodeURIComponent(urlParams.get('pay'));
-            const orderState = urlParams.get('state');
-            const orderPrice = urlParams.get('price');
-            document.querySelector("#dateOn").innerText = orderDate;
-            document.querySelector("#numberOn").innerText = orderNumber + "-0123456";
-            document.querySelector("#imgOn").src = orderImg;
-            document.querySelector("#pNameOn").innerHTML = orderTitle + "<small>외 1건</small>";
-            document.querySelector("#payOn").innerText = orderPay;
-            document.querySelector("#payOn1").innerHTML = orderPay +"<a href='#'> 명세서 보기 </a>";
-            document.querySelector("#stateOn").innerText = orderState;
-            document.querySelector("#priceOn").innerText = orderPrice; */
-
             function goBack(){
                 history.back();
             }
