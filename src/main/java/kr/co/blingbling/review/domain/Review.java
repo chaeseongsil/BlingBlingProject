@@ -2,6 +2,8 @@ package kr.co.blingbling.review.domain;
 
 import java.sql.Timestamp;
 
+import kr.co.blingbling.product.domain.Product;
+
 public class Review {
 
 	private int reviewNo;
@@ -13,11 +15,12 @@ public class Review {
 	private String reviewFilename;
 	private String reviewFileRename;
 	private String reviewFilepath;
-	private String reviewFileLength;
+	private long reviewFileLength;
 	private int reviewCount;
 	private Timestamp rCreateDate;
 	private Timestamp rUpdateDate;
 	private String rStatus;
+	private Product product;
 	
 	public int getReviewNo() {
 		return reviewNo;
@@ -73,10 +76,10 @@ public class Review {
 	public void setReviewFilepath(String reviewFilepath) {
 		this.reviewFilepath = reviewFilepath;
 	}
-	public String getReviewFileLength() {
+	public long getReviewFileLength() {
 		return reviewFileLength;
 	}
-	public void setReviewFileLength(String reviewFileLength) {
+	public void setReviewFileLength(long reviewFileLength) {
 		this.reviewFileLength = reviewFileLength;
 	}
 	public int getReviewCount() {
@@ -103,7 +106,12 @@ public class Review {
 	public void setrStatus(String rStatus) {
 		this.rStatus = rStatus;
 	}
-	
+	public Product getProduct() {
+		return product;
+	}
+	public void setProduct(Product product) {
+		this.product = product;
+	}
 	@Override
 	public String toString() {
 		return "후기 [글번호=" + reviewNo + ", 제목=" + reviewTitle + ", 내용=" + reviewContent

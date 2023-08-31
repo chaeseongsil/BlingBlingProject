@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="../resources/css/all.css">
         <link rel="stylesheet" href="../resources/css/footer.css">
         <link rel="stylesheet" href="../resources/css/header.css">
-        <link rel="stylesheet" href="../resources/css/myReviewWrite.css">
+        <link rel="stylesheet" href="../resources/css/reviewList.css">
         <style>
             .login-form-btn {
                 font-size : 15px;
@@ -31,6 +31,7 @@
                         <div class="boardList">
                             <div class="top">
                                 <div class="num">번호</div>
+                                <div class="product">상품</div>
                                 <div class="title">제목</div>
                                 <div class="writer">작성자</div>
                                 <div class="date">작성일</div>
@@ -39,10 +40,15 @@
                             <c:forEach items="${requestScope.rList }" var="review">
 	                            <div>
 	                                <div class="num">${review.reviewNo }</div>
+	                           		<div class="product">
+	                           			<a href="/product/shopDesc.do?productNo=${review.product.productNo }">
+		                           			<img alt="${review.product.productName }" src="${review.product.pImagePath }">
+	                           			</a>
+	                           		</div>
 	                                <div class="title"><a href="/review/reviewDetail.do?reviewNo=${review.reviewNo }">${review.reviewTitle }</a></div>
 	                                <div class="writer">${review.reviewWriter }</div>
-	                                <div class="date">${review.reviewDate }</div>
-	                                <div class="count">${review.viewCount }</div>
+	                                <div class="date">${review.rCreateDate.toString().substring(0,11) }</div>
+	                                <div class="count">${review.reviewCount }</div>
 	                            </div>
                             </c:forEach>
                         </div>

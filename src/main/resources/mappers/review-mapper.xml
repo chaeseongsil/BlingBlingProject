@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReviewMapper">
+	<resultMap type="Product" id="productResultMap">
+		<id 	property="productNo" 		column="PRODUCT_NO"/>
+		<result property="productName" 		column="PRODUCT_NAME"/>
+		<result property="productPrice" 	column="PRODUCT_PRICE"/>
+		<result property="productCategory"  column="PRODUCT_CATEGORY"/>
+		<result property="pImageName" 		column="P_IMAGE_NAME"/>
+		<result property="pImagePath" 		column="P_IMAGE_PATH"/>
+		<result property="pImageLength" 	column="P_IMAGE_LENGTH"/>
+		<result property="pRegDate" 		column="P_REG_DATE"/>
+		<result property="pStockYn" 		column="P_STOCK_YN"/>
+	</resultMap>
+	<resultMap type="Review" id="reviewResultMap">
+		<id 	property="reviewNo" 		column="REVIEW_NO"/>
+		<result property="reviewTitle" 		column="REVIEW_TITLE"/>
+		<result property="reviewContent" 	column="REVIEW_CONTENT"/>
+		<result property="reviewWriter" 	column="REVIEW_WRITER"/>
+		<result property="productNo" 		column="PRODUCT_NO"/>
+		<result property="reviewStar" 		column="REVIEW_STAR"/>
+		<result property="reviewFilename" 	column="REVIEW_FILENAME"/>
+		<result property="reviewFileRename" column="REVIEW_FILERENAME"/>
+		<result property="reviewFilepath" 	column="REVIEW_FILEPATH"/>
+		<result property="reviewFileLength" column="REVIEW_FILELENGTH"/>
+		<result property="reviewCount" 		column="REVIEW_COUNT"/>
+		<result property="rCreateDate" 		column="R_CREATE_DATE"/>
+		<result property="rUpdateDate" 		column="R_UPDATE_DATE"/>
+		<result property="rStatus" 			column="R_STATUS"/>
+		<collection property="product" resultMap="productResultMap"/>
+	</resultMap>
+	<insert id="insertReview">
+		INSERT INTO REVIEW_TBL VALUES(SEQ_REVIEW_NO.NEXTVAL, #{reviewTitle}, #{reviewContent}, #{reviewWriter}, #{productNo}, #{reviewStar}, #{reviewFilename}, #{reviewFileRename}, #{reviewFilepath}, #{reviewFileLength}, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*) FROM REVIEW_TBL WHERE R_STATUS = 'Y'
+	</select>
+	<select id="selectReviewList" resultMap="reviewResultMap">
+		SELECT *
+		FROM REVIEW_TBL
+		JOIN PRODUCT_TBL USING(PRODUCT_NO) 
+		WHERE R_STATUS = 'Y'
+	</select>
+	<select id="selectOneByNo" resultMap="reviewResultMap">
+		SELECT * 
+		FROM REVIEW_TBL
+		JOIN PRODUCT_TBL USING(PRODUCT_NO)
+		WHERE R_STATUS = 'Y'
+	</select>
+</mapper>

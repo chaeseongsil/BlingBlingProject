@@ -34,23 +34,22 @@
 	                               <dl>
 	                                   <dt>상품</dt>
 	                                   <dd id="reviewProduct" style="display: flex;align-items: center;">
-	                                   	<img alt="" src="${product.pImagePath }">
-	                                       ${product.productName }
-	                                    <input type="hidden" name="productNo" value="${product.productNo }">
+	                                   		<img alt="" src="${review.product.pImagePath }">
+	                                        ${review.product.productName }
 	                                   </dd>
 	                               </dl>
 	                               <dl id="star">
 	                                   <dt>나의 별점</dt>
 	                                   <dd id="stardd">
-	                                       <input type="radio" name="reviewStar" value="5" id="rate1">
+	                                       <input type="radio" name="reviewStar" value="5" id="rate1" <c:if test="${review.reviewStar eq '5' }">checked</c:if>>
 	                                       <label for="rate1">★</label>
-	                                       <input type="radio" name="reviewStar" value="4" id="rate2">
+	                                       <input type="radio" name="reviewStar" value="4" id="rate2" <c:if test="${review.reviewStar eq '4' }">checked</c:if>>
 	                                       <label for="rate2">★</label>
-	                                       <input type="radio" name="reviewStar" value="3" id="rate3">
+	                                       <input type="radio" name="reviewStar" value="3" id="rate3" <c:if test="${review.reviewStar eq '3' }">checked</c:if>>
 	                                       <label for="rate3">★</label>
-	                                       <input type="radio" name="reviewStar" value="2" id="rate4">
+	                                       <input type="radio" name="reviewStar" value="2" id="rate4" <c:if test="${review.reviewStar eq '2' }">checked</c:if>>
 	                                       <label for="rate4">★</label>
-	                                       <input type="radio" name="reviewStar" value="1" id="rate5">
+	                                       <input type="radio" name="reviewStar" value="1" id="rate5" <c:if test="${review.reviewStar eq '1' }">checked</c:if>>
 	                                       <label for="rate5">★</label>
 	                                   </dd>
 	                               </dl>
@@ -58,17 +57,18 @@
 	                           <div class="info">
 	                               <dl>
 	                                   <dt>제목</dt>
-	                                   <dd><input type="text" name="reviewTitle" placeholder="제목을 입력하세요."></dd>
+	                                   <dd><input type="text" name="reviewTitle" value="${review.reviewTitle }"></dd>
 	                               </dl>
 	                               <dl>
 	                                   <dt>파일첨부</dt>
 	                                   <dd>
+	                                   	   <a href="../resources/ruploadFiles/${review.reviewFileRename}" download>${review.reviewFilename }</a>
 	                                       <input type="file" name="uploadFile" id="orderChangeFile" multiple>
 	                                   </dd>
 	                               </dl>
 	                           </div>
 	                           <div class="cont">
-	                               <textarea placeholder="리뷰 작성시 적립금 2000원을 드립니다." name="reviewContent"></textarea>
+	                               <textarea name="reviewContent">${review.reviewContent }</textarea>
 	                           </div>
 	                       </div>
 	                       <div class="bt_wrap" id="bt_btn">

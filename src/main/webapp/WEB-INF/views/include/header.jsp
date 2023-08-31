@@ -16,7 +16,7 @@
 	                        				<a href="/board/noticeList.do">NOTICE</a>
 	                        			</li>
 	                        			<li>
-	                        				<a href="/review/reviewList.do">REVIEW</a>
+	                        				<a href="/review/list.do">REVIEW</a>
 	                        			</li>
 	                        			<li>
 	                        				<a href="/qna/list.do">QNA</a>
